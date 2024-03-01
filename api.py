@@ -7,47 +7,21 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Define the parameters for the POST request
-client_id = os.environ.get("CLIENT_ID")
-client_secret = os.environ.get("CLIENT_SECRET")
-authorization_code = os.environ.get("AUTHORIZATION_CODE")
-redirect_uri = os.environ.get("REDIRECT_URI")
-restaurant_id = os.environ.get("RESTAURANT_ID")
-
-params = {
-    "grant_type": "authorization_code",
-    "client_id": client_id,
-    "client_secret": client_secret,
-    "code": authorization_code
-}
-
-headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-
-# Send the POST request to the token endpoint to request an access and a refresh token
-response = requests.post(f"https://api.dinlr.com/v1/{restaurant_id}/oauth/token", data=params, headers=headers)
-
-# Parse the JSON response and extract the access and refresh tokens
-data = response.json()
-print(data)
-access_token = data["access_token"]
-refresh_token = data["refresh_token"]
-
-# Store the access and refresh tokens in the .env file
-os.environ["ACCESS_TOKEN"] = access_token
-os.environ["REFRESH_TOKEN"] = refresh_token
-os.environ["CLIENT_ID"] = client_id
-os.environ["CLIENT_SECRET"] = client_secret
-os.environ["RESTAURANT_ID"] = restaurant_id
-os.environ["AUTHORIZATION_CODE"] = authorization_code
-os.environ["REDIRECT_URI"] = redirect_uri
+CLIENT_ID = os.environ.get("CLIENT_ID")
+CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
+REDIRECT_URI = os.environ.get("REDIRECT_URI")
+RESTAURANT_ID = os.environ.get("RESTAURANT_ID")
+ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
+REFRESH_TOKEN = os.environ.get("REFRESH_TOKEN")
 
 # Step 3: Use the access token to interact with the Dinlr API
 # For example, to get a list of all locations of the restaurant
 headers = {
-    "Authorization": f"Bearer {access_token}"
+    "Authorization": f"Bearer {ACCESS_TOKEN}"
 }
 
 # Send the GET request to the locations endpoint
-response = requests.get(f"https://api.dinlr.com/v1/{restaurant_id}/onlineorder/locations", headers=headers)
+response = requests.get(f"https://api.dinlr.com/v1/{RESTAURANT_ID}/onlineorder/locations", headers=headers)
 
 # Parse the JSON response and print the location names
 data = response.json()
