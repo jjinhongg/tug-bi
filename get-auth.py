@@ -10,7 +10,7 @@ load_dotenv()
 # Define the parameters for the POST request
 CLIENT_ID = os.environ.get("CLIENT_ID")
 CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
-AUTHORIZATION_CODE = os.environ.get("AUTHORIZATION_CODE")
+AUTHORIZATION_CODE = "20824240b5140e8be5c33c3e07705837"
 REDIRECT_URI = os.environ.get("REDIRECT_URI")
 RESTAURANT_ID = os.environ.get("RESTAURANT_ID")
 
