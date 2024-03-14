@@ -41,7 +41,8 @@ os.environ["REDIRECT_URI"] = REDIRECT_URI
 os.environ["REFRESH_TOKEN"] = REFRESH_TOKEN
 os.environ["RESTAURANT_ID"] = RESTAURANT_ID
 os.environ["EXPIRES_IN"] = str(data["expires_in"])
-os.environ["EXPIRES_AT"] = str(datetime.now() + timedelta(seconds=int(data["expires_in"])))
+expires_at = datetime.now() + timedelta(seconds=int(data["expires_in"]))
+os.environ["EXPIRES_AT"] = expires_at.strftime("%Y-%m-%dT%H:%M:%S")
 
 # export to .env file
 with open('.env', 'w') as f:
