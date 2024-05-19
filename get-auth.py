@@ -2,7 +2,9 @@ import requests
 import json
 import os
 from dotenv import load_dotenv
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+
+utc_plus_8 = timezone(timedelta(hours=8))
 
 # Load the environment variables from the .env file
 load_dotenv()
@@ -10,7 +12,7 @@ load_dotenv()
 # Define the parameters for the POST request
 CLIENT_ID = os.environ.get("CLIENT_ID")
 CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
-AUTHORIZATION_CODE = "20824240b5140e8be5c33c3e07705837"
+AUTHORIZATION_CODE = "c85ebcb770521d44ee4600ff5176fd2d"
 REDIRECT_URI = os.environ.get("REDIRECT_URI")
 RESTAURANT_ID = os.environ.get("RESTAURANT_ID")
 
@@ -41,8 +43,8 @@ os.environ["REDIRECT_URI"] = REDIRECT_URI
 os.environ["REFRESH_TOKEN"] = REFRESH_TOKEN
 os.environ["RESTAURANT_ID"] = RESTAURANT_ID
 os.environ["EXPIRES_IN"] = str(data["expires_in"])
-expires_at = datetime.now() + timedelta(seconds=int(data["expires_in"]))
-os.environ["EXPIRES_AT"] = expires_at.strftime("%Y-%m-%dT%H:%M:%S")
+expires_at = datetime.now(utc_plus_8) + timedelta(seconds=int(data["expires_in"]))
+os.environ["EXPIRES_AT"] = expires_at.strftime("%Y-%m-%dT%H:%M:%S%z")
 
 # export to .env file
 with open('.env', 'w') as f:
